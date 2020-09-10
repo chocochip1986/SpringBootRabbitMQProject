@@ -41,39 +41,6 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public MessageListener messageListener() {
-        final MessageListener messageListener = new MessageListener() {
-            public void onMessage(Message message) {
-                System.out.println("Message Details: \n"
-                        +formatMessageProperties(message.getMessageProperties())
-                        +": "+message.toString());
-            }
-
-            private String formatMessageProperties(MessageProperties messageProperties) {
-                String msgProp = "Queue: "+messageProperties.getConsumerQueue()+"\n"
-                        +"Exchange: "+messageProperties.getReceivedExchange()+"\n"
-                        +"Routing Key: "+messageProperties.getReceivedRoutingKey()+"\n";
-                return msgProp;
-            }
-        };
-        return messageListener;
-    }
-
-    @Bean
-    public SimpleMessageListenerContainer simpleMessageListenerContainer(ConnectionFactory connectionFactory) {
-        final SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer(connectionFactory);
-        simpleMessageListenerContainer.setQueueNames(new String[]{
-                RabbitMQConstants.QUEUE_ONE,
-                RabbitMQConstants.QUEUE_TWO,
-                RabbitMQConstants.QUEUE_THREE,
-                RabbitMQConstants.QUEUE_FOUR
-        });
-        simpleMessageListenerContainer.setMessageListener(messageListener());
-        simpleMessageListenerContainer.afterPropertiesSet();
-        return simpleMessageListenerContainer;
-    }
-
-    @Bean
     public AmqpTemplate rabbitMQTemplate(ConnectionFactory connectionFactory) {
         final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(jsonMessageConverter());
