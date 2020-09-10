@@ -6,13 +6,16 @@ import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
+import org.springframework.amqp.rabbit.batch.SimpleBatchingStrategy;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.BatchingRabbitTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.TaskScheduler;
 import rabbitmq.constants.RabbitMQConstants;
 
 @EnableRabbit //If you wanna use SimpleRabbitListenerContainerFactory to enable support for @RabbitListener
@@ -59,5 +62,15 @@ public class RabbitMQConfig {
         rabbitTemplate.setMessageConverter(jsonMessageConverter());
         rabbitTemplate.setExchange(RabbitMQConstants.DIRECT_EXCHANGE_ONE);
         return rabbitTemplate;
+    }
+
+    @Bean
+    public AmqpTemplate batchRabbitMQTemplate(ConnectionFactory connectionFactory, TaskScheduler taskScheduler) {
+        SimpleBatchingStrategy simpleBatchingStrategy = new SimpleBatchingStrategy(10, 10, 10);
+        final BatchingRabbitTemplate batchingRabbitTemplate = new BatchingRabbitTemplate(simpleBatchingStrategy, taskScheduler);
+        batchingRabbitTemplate.setMessageConverter(jsonMessageConverter());
+        batchingRabbitTemplate.setExchange(RabbitMQConstants.DIRECT_EXCHANGE_ONE);
+        batchingRabbitTemplate.afterPropertiesSet();
+        return batchingRabbitTemplate;
     }
 }
