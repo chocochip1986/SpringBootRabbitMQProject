@@ -7,11 +7,12 @@ import org.springframework.stereotype.Component;
 import rabbitmq.constants.RabbitMQConstants;
 
 @Component
-@RabbitListener(queues = {RabbitMQConstants.QUEUE_THREE, RabbitMQConstants.QUEUE_FOUR})
-public class RabbitMQFanoutConsumer extends RabbitMQBaseConsumer {
+@RabbitListener(queues = {RabbitMQConstants.QUEUE_THREE})
+public class RabbitMQFanoutConsumerOne extends RabbitMQBaseConsumer {
     @RabbitHandler
     public void receive(String in, Message message) {
-        System.out.println("MESSAGE PROPERTIES: \n"+formattedMessageProperties(message.getMessageProperties()));
+        System.out.println("RabbitMQFanoutConsumerOne: \n"+formattedMessageProperties(message.getMessageProperties())+
+                "\nTime: "+System.currentTimeMillis());
         super.receive(in);
     }
 }

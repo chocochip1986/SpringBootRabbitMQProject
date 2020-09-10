@@ -35,6 +35,11 @@ public class RabbitMQBinding {
     }
 
     @Bean
+    public Binding queueSevenBindingForFanoutExchange(Queue queueSeven, FanoutExchange fanoutExchange) {
+        return BindingBuilder.bind(queueSeven).to(fanoutExchange);
+    }
+
+    @Bean
     public Binding queueFiveBindingForTopicExchange(Queue queueFive, TopicExchange topicExchange) {
         return BindingBuilder.bind(queueFive).to(topicExchange).with(RabbitMQConstants.QUEUE_FIVE_ROUTING_KEY);
     }

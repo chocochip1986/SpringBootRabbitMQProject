@@ -15,6 +15,7 @@ public class RabbitMQConstants {
     public static final String QUEUE_FOUR = "queue_four";
     public static final String QUEUE_FIVE = "queue_five";
     public static final String QUEUE_SIX = "queue_six";
+    public static final String QUEUE_SEVEN = "queue_seven";
 
     //EXCHANGE NAMES
     public static final String DIRECT_EXCHANGE_ONE = "DIRECT_EXCHANGE_ONE";

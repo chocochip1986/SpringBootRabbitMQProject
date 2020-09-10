@@ -29,6 +29,11 @@ public class RabbitMQQueues {
         return new Queue(RabbitMQConstants.QUEUE_FOUR);
     }
 
+    @Bean
+    public Queue queueSeven() {
+        return new Queue(RabbitMQConstants.QUEUE_SEVEN);
+    }
+
     //Topic Exchange
     @Bean
     public Queue queueFive() {
