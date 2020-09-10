@@ -1,0 +1,15 @@
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  datasource:
+    url: jdbc:oracle:thin:@localhost:3000:ORCLCDB
+    username: app_user
+    password: pwd
+    driver-class-name: oracle.jdbc.OracleDriver
+
+server:
+  port: 9998
+
