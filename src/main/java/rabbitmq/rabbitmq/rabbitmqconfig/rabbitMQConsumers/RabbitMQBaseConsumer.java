@@ -8,9 +8,10 @@ public class RabbitMQBaseConsumer {
     }
 
     protected String formattedMessageProperties(MessageProperties messageProperties) {
-        String msgProp = "QUEUE: "+messageProperties.getConsumerQueue()+"\n"
+        String msgProp = "MESSAGE PROPERTIES: \nQUEUE: "+messageProperties.getConsumerQueue()+"\n"
                 +"EXCHANGE: "+messageProperties.getReceivedExchange()+"\n"
-                +"ROUTING_KEY: "+messageProperties.getReceivedRoutingKey()+"\n";
+                +"ROUTING_KEY: "+messageProperties.getReceivedRoutingKey()+"\n"
+                +"Thread: "+Thread.currentThread().getId();
         return msgProp;
     }
 }

@@ -28,4 +28,15 @@ public class RabbitMQQueues {
     public Queue queueFour() {
         return new Queue(RabbitMQConstants.QUEUE_FOUR);
     }
+
+    //Topic Exchange
+    @Bean
+    public Queue queueFive() {
+        return new Queue(RabbitMQConstants.QUEUE_FIVE);
+    }
+
+    @Bean
+    public Queue queueSix() {
+        return new Queue(RabbitMQConstants.QUEUE_SIX);
+    }
 }

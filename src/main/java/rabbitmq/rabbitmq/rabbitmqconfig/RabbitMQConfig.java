@@ -4,12 +4,9 @@ package rabbitmq.rabbitmq.rabbitmqconfig;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.FanoutExchange;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageListener;
-import org.springframework.amqp.core.MessageProperties;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
@@ -33,6 +30,11 @@ public class RabbitMQConfig {
     @Bean
     public FanoutExchange fanoutExchange() {
         return new FanoutExchange(RabbitMQConstants.FANOUT_EXCHANGE_ONE);
+    }
+
+    @Bean
+    public TopicExchange topicExchange() {
+        return new TopicExchange(RabbitMQConstants.TOPIC_EXCHANGE_ONE);
     }
 
     @Bean
