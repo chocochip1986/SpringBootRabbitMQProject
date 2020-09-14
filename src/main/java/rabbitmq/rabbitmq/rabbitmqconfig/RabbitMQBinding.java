@@ -24,6 +24,11 @@ public class RabbitMQBinding {
     }
 
     @Bean
+    public Binding queueEightBinding(Queue queueEight, DirectExchange directExchange) {
+        return BindingBuilder.bind(queueEight).to(directExchange).with(RabbitMQConstants.QUEUE_EIGHT_ROUTING_KEY);
+    }
+
+    @Bean
     public Binding queueThreeBindingForFanoutExchange(Queue queueThree, FanoutExchange fanoutExchange) {
         return BindingBuilder.bind(queueThree).to(fanoutExchange);
     }

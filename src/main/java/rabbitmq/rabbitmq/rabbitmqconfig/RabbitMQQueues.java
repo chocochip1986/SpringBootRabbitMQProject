@@ -44,4 +44,10 @@ public class RabbitMQQueues {
     public Queue queueSix() {
         return new Queue(RabbitMQConstants.QUEUE_SIX);
     }
+
+    //For batch rabbitmq
+    @Bean
+    public Queue queueEight() {
+        return new Queue(RabbitMQConstants.QUEUE_EIGHT);
+    }
 }

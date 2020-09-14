@@ -4,6 +4,7 @@ package rabbitmq.rabbitmq.rabbitmqconfig;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.batch.SimpleBatchingStrategy;
@@ -15,6 +16,7 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.TaskScheduler;
 import rabbitmq.constants.RabbitMQConstants;
 
@@ -44,10 +46,20 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory() {
+    public SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory(ConnectionFactory connectionFactory) {
         SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory = new SimpleRabbitListenerContainerFactory();
-        simpleRabbitListenerContainerFactory.setConcurrentConsumers(2);
-        simpleRabbitListenerContainerFactory.setMaxConcurrentConsumers(10);
+        simpleRabbitListenerContainerFactory.setConnectionFactory(connectionFactory);
+        simpleRabbitListenerContainerFactory.setMessageConverter(jsonMessageConverter());
+        return simpleRabbitListenerContainerFactory;
+    }
+
+    @Bean
+    public SimpleRabbitListenerContainerFactory batchRabbitListenerContainerFactory(ConnectionFactory connectionFactory) {
+        SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory = new SimpleRabbitListenerContainerFactory();
+        simpleRabbitListenerContainerFactory.setConnectionFactory(connectionFactory);
+        simpleRabbitListenerContainerFactory.setBatchSize(5); //Note that this may be exceeded by the broker pumping messages in.
+        simpleRabbitListenerContainerFactory.setConsumerBatchEnabled(true); //You need to set this flag to true if you want the listening container to create a batch of messages.
+        simpleRabbitListenerContainerFactory.setBatchListener(true); //you can configure the listener container factory and listener to receive the entire batch in one call
         return simpleRabbitListenerContainerFactory;
     }
 
@@ -56,6 +68,7 @@ public class RabbitMQConfig {
         return new Jackson2JsonMessageConverter();
     }
 
+    @Primary
     @Bean
     public AmqpTemplate rabbitMQTemplate(ConnectionFactory connectionFactory) {
         final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
@@ -64,11 +77,11 @@ public class RabbitMQConfig {
         return rabbitTemplate;
     }
 
-    @Bean
-    public AmqpTemplate batchRabbitMQTemplate(ConnectionFactory connectionFactory, TaskScheduler taskScheduler) {
-        SimpleBatchingStrategy simpleBatchingStrategy = new SimpleBatchingStrategy(10, 10, 10);
+    @Bean(value = "batchRabbit")
+    public BatchingRabbitTemplate batchRabbitMQTemplate(ConnectionFactory connectionFactory, TaskScheduler taskScheduler) {
+        SimpleBatchingStrategy simpleBatchingStrategy = new SimpleBatchingStrategy(RabbitMQConstants.BATCH_SIZE, RabbitMQConstants.BUFFER_LIMIT, RabbitMQConstants.BATCH_TIMEOUT);
         final BatchingRabbitTemplate batchingRabbitTemplate = new BatchingRabbitTemplate(simpleBatchingStrategy, taskScheduler);
-        batchingRabbitTemplate.setMessageConverter(jsonMessageConverter());
+        batchingRabbitTemplate.setConnectionFactory(connectionFactory);
         batchingRabbitTemplate.setExchange(RabbitMQConstants.DIRECT_EXCHANGE_ONE);
         batchingRabbitTemplate.afterPropertiesSet();
         return batchingRabbitTemplate;

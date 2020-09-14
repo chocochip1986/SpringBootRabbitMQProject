@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import rabbitmq.constants.RabbitMQConstants;
 
 @Component
-@RabbitListener(queues = {RabbitMQConstants.QUEUE_FIVE, RabbitMQConstants.QUEUE_SIX})
+@RabbitListener(queues = {RabbitMQConstants.QUEUE_FIVE, RabbitMQConstants.QUEUE_SIX}, containerFactory = "simpleRabbitListenerContainerFactory")
 public class RabbitMQTopicConsumer extends RabbitMQBaseConsumer {
     @RabbitHandler
     public void receive(String in, Message message) {
