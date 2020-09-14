@@ -8,6 +8,7 @@ public class RabbitMQConstants {
     public static final String QUEUE_SIX_ROUTING_KEY = "route.queue_six";
     public static final String QUEUE_SIX_GENRIC_ROUTING_KEY = "route.#";
     public static final String QUEUE_EIGHT_ROUTING_KEY = "route.queue_eight";
+    public static final String QUEUE_NINE_ROUTING_KEY = "route.queue_nine";
 
     //QUEUE NAMES
     public static final String QUEUE_ONE = "queue_one";
@@ -18,6 +19,7 @@ public class RabbitMQConstants {
     public static final String QUEUE_SIX = "queue_six";
     public static final String QUEUE_SEVEN = "queue_seven";
     public static final String QUEUE_EIGHT = "queue_eight";
+    public static final String QUEUE_NINE = "queue_nine";
 
     //EXCHANGE NAMES
     public static final String DIRECT_EXCHANGE_ONE = "DIRECT_EXCHANGE_ONE";

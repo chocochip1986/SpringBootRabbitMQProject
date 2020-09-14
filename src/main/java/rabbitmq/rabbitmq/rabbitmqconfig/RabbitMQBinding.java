@@ -57,4 +57,9 @@ public class RabbitMQBinding {
     public Binding queueSixGenericBindingForTopicExchange(Queue queueSix, TopicExchange topicExchange) {
         return BindingBuilder.bind(queueSix).to(topicExchange).with(RabbitMQConstants.QUEUE_SIX_GENRIC_ROUTING_KEY);
     }
+
+    @Bean
+    public Binding queueNineBindingForDirectExchange(Queue queueNine, DirectExchange directExchange) {
+        return BindingBuilder.bind(queueNine).to(directExchange).with(RabbitMQConstants.QUEUE_NINE_ROUTING_KEY);
+    }
 }

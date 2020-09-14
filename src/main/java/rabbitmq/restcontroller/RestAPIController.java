@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQBatchPublisher;
 import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForFanoutExchange;
+import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForQueueNine;
 import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForQueueOne;
 import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForQueueTwo;
 import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForTopicExchange;
@@ -24,6 +25,9 @@ public class RestAPIController {
 
     @Autowired
     RabbitMQPublisherForQueueTwo rabbitMQPublisherForQueueTwo;
+
+    @Autowired
+    RabbitMQPublisherForQueueNine rabbitMQPublisherForQueueNine;
 
     @Autowired
     RabbitMQPublisherForFanoutExchange rabbitMQPublisherForFanoutExchange;
@@ -52,6 +56,9 @@ public class RestAPIController {
                 break;
             case 6:
                 rabbitMQPublisherForTopicExchange.send("This message is sent with routing key route.queue_seven", "route.queue_seven");
+                break;
+            case 9:
+                rabbitMQPublisherForQueueNine.send("This message is sent with routing key route.queue_nine");
                 break;
             default:
                 System.out.println("No message was published!");

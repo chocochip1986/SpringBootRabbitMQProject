@@ -18,6 +18,12 @@ public class RabbitMQQueues {
         return new Queue(RabbitMQConstants.QUEUE_TWO);
     }
 
+    //Direct queue with manual ack/nack
+    @Bean
+    public Queue queueNine() {
+        return new Queue(RabbitMQConstants.QUEUE_NINE);
+    }
+
     //Fanout Queues
     @Bean
     public Queue queueThree() {
