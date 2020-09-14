@@ -1,6 +1,7 @@
 package rabbitmq.rabbitmq.rabbitmqconfig;
 
 
+import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.FanoutExchange;
@@ -50,6 +51,15 @@ public class RabbitMQConfig {
         SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory = new SimpleRabbitListenerContainerFactory();
         simpleRabbitListenerContainerFactory.setConnectionFactory(connectionFactory);
         simpleRabbitListenerContainerFactory.setMessageConverter(jsonMessageConverter());
+        return simpleRabbitListenerContainerFactory;
+    }
+
+    @Bean
+    public SimpleRabbitListenerContainerFactory simpleManualRabbitListenerContainerFactory(ConnectionFactory connectionFactory) {
+        SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory = new SimpleRabbitListenerContainerFactory();
+        simpleRabbitListenerContainerFactory.setConnectionFactory(connectionFactory);
+        simpleRabbitListenerContainerFactory.setMessageConverter(jsonMessageConverter());
+        simpleRabbitListenerContainerFactory.setAcknowledgeMode(AcknowledgeMode.MANUAL);
         return simpleRabbitListenerContainerFactory;
     }
 
