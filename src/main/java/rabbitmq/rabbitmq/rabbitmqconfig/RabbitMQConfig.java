@@ -54,6 +54,22 @@ public class RabbitMQConfig {
     }
 
     @Bean
+    public SimpleRabbitListenerContainerFactory simpleConcurrentRabbitListenerContainerFactory(ConnectionFactory connectionFactory) {
+        SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory = new SimpleRabbitListenerContainerFactory();
+        simpleRabbitListenerContainerFactory.setConnectionFactory(connectionFactory);
+        simpleRabbitListenerContainerFactory.setMessageConverter(jsonMessageConverter());
+        simpleRabbitListenerContainerFactory.setConcurrentConsumers(2);
+        simpleRabbitListenerContainerFactory.setStartConsumerMinInterval(500l); //If maxConcurrentConsumers is greater then concurrentConsumers, and maxConcurrentConsumers has not been reached, specifies the minimum time (milliseconds) between starting new consumers on demand.
+        simpleRabbitListenerContainerFactory.setStopConsumerMinInterval(500l);
+        simpleRabbitListenerContainerFactory.setConsecutiveActiveTrigger(1);
+        simpleRabbitListenerContainerFactory.setConsecutiveIdleTrigger(10);
+        simpleRabbitListenerContainerFactory.setBatchSize(1);
+        simpleRabbitListenerContainerFactory.setReceiveTimeout(1000l);
+        simpleRabbitListenerContainerFactory.setMaxConcurrentConsumers(5);
+        return simpleRabbitListenerContainerFactory;
+    }
+
+    @Bean
     public SimpleRabbitListenerContainerFactory simpleManualRabbitListenerContainerFactory(ConnectionFactory connectionFactory) {
         SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory = new SimpleRabbitListenerContainerFactory();
         simpleRabbitListenerContainerFactory.setConnectionFactory(connectionFactory);

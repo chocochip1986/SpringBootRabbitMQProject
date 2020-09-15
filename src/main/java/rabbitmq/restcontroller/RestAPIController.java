@@ -12,6 +12,7 @@ import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQBatchPublishe
 import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForFanoutExchange;
 import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForQueueNine;
 import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForQueueOne;
+import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForQueueTen;
 import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForQueueTwo;
 import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForTopicExchange;
 
@@ -28,6 +29,9 @@ public class RestAPIController {
 
     @Autowired
     RabbitMQPublisherForQueueNine rabbitMQPublisherForQueueNine;
+
+    @Autowired
+    RabbitMQPublisherForQueueTen rabbitMQPublisherForQueueTen;
 
     @Autowired
     RabbitMQPublisherForFanoutExchange rabbitMQPublisherForFanoutExchange;
@@ -59,6 +63,11 @@ public class RestAPIController {
                 break;
             case 9:
                 rabbitMQPublisherForQueueNine.send("This message is sent with routing key route.queue_nine");
+                break;
+            case 10:
+                for ( int i = 0 ; i < 10 ; i++ ) {
+                    rabbitMQPublisherForQueueTen.send("["+i+"] This message is sent to queue ten!");
+                }
                 break;
             default:
                 System.out.println("No message was published!");
