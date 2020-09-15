@@ -11,6 +11,7 @@ public class RabbitMQBaseConsumer {
         String msgProp = "MESSAGE PROPERTIES: \nQUEUE: "+messageProperties.getConsumerQueue()+"\n"
                 +"EXCHANGE: "+messageProperties.getReceivedExchange()+"\n"
                 +"ROUTING_KEY: "+messageProperties.getReceivedRoutingKey()+"\n"
+                +"CORRELATION ID: "+messageProperties.getCorrelationId()+"\n"
                 +"Thread: "+Thread.currentThread().getId();
         return msgProp;
     }
