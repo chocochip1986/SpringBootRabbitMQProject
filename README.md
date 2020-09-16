@@ -48,10 +48,29 @@ By default, a queue process is given 4000 message store credits, and then 800 fo
 
 Messages which need to be paged out due to memory pressure will also use this credit.
 
+Queues are single threaded. One queue can handle up to 50k messages. 
 
 There are 2 kinds of queues (Default and Lazy)
 Default queues keep messages in memory for longer periods of times
 Lazy queues will write out their messages to disk as soon as possible
+
+Acknowledging messages
+====================
+By default, when a consumer consumes a message, the consumer will send an acknowledge via a channel
+But if a message is not consumed as expected (i.e. exception error), the message will be unacknowledged.
+This will hog up the queue as the consumer will keep trying to process the message, potentially causing an infinite loop.
+To avoid this, you may want redirect failed messages to a Dead Letter Queue (separate queue) for special handling.
+
+
+A side note, if you need such granular control, one can choose to manually acknowledge consumed messages. 
+
+Disaster recovery
+===================
+By right, queues, broker, messages all live in memory so if the broker dies when a message is being published to it, it's gone.
+So, in order to survive such disasters, we must ensure that the messages are written to disk (i.e. set as durable)
+
+Note: writing to disk may affect performance hard.
+
 
 
 Rabbitmq Batch Messages
