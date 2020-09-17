@@ -1,4 +1,4 @@
-package rabbitmq.rabbitmq.rabbitmqconfig;
+package rabbitmq.rabbitmqconfig;
 
 import org.springframework.amqp.core.Binding;
 

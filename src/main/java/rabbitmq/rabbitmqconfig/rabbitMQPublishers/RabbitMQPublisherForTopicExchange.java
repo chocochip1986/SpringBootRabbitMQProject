@@ -1,4 +1,4 @@
-package rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers;
+package rabbitmq.rabbitmqconfig.rabbitMQPublishers;
 
 import org.springframework.stereotype.Service;
 import rabbitmq.constants.RabbitMQConstants;

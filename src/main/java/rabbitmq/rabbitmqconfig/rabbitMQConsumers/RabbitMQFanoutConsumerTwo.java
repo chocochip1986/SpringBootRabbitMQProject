@@ -1,4 +1,4 @@
-package rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQConsumers;
+package rabbitmq.rabbitmqconfig.rabbitMQConsumers;
 
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;

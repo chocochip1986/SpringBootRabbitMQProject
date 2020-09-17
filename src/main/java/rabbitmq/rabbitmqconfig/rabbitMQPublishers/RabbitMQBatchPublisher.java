@@ -1,4 +1,4 @@
-package rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers;
+package rabbitmq.rabbitmqconfig.rabbitMQPublishers;
 
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;

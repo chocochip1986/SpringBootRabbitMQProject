@@ -1,4 +1,4 @@
-package rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers;
+package rabbitmq.rabbitmqconfig.rabbitMQPublishers;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

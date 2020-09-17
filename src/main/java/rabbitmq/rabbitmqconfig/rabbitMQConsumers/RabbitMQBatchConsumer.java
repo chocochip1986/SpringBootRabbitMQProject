@@ -1,10 +1,7 @@
-package rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQConsumers;
+package rabbitmq.rabbitmqconfig.rabbitMQConsumers;
 
 import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageProperties;
-import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

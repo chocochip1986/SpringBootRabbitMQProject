@@ -1,23 +1,19 @@
 package rabbitmq.restcontroller;
 
 import com.github.javafaker.Faker;
-import org.springframework.amqp.rabbit.core.BatchingRabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQBatchPublisher;
-import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForFanoutExchange;
-import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForQueueNine;
-import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForQueueOne;
-import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForQueueTen;
-import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForQueueTwo;
-import rabbitmq.rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForTopicExchange;
-
-import java.util.ArrayList;
-import java.util.List;
+import rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQBatchPublisher;
+import rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForFanoutExchange;
+import rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForQueueNine;
+import rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForQueueOne;
+import rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForQueueTen;
+import rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForQueueTwo;
+import rabbitmq.rabbitmqconfig.rabbitMQPublishers.RabbitMQPublisherForTopicExchange;
 
 @RestController
 public class RestAPIController {
